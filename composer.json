@@ -1,0 +1,11 @@
+{
+    "name": "plugin/reservation-plugin",
+    "description": "Custom reservation plugin with WooCommerce integration",
+    "type": "wordpress-plugin",
+    "autoload": {
+        "psr-4": {
+            "MyReservationPlugin\\": "src/"
+        }
+    },
+    "require": {}
+}
