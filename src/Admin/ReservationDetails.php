@@ -45,8 +45,17 @@ class ReservationDetails {
                 <tr><th>Email:</th><td>' . esc_html( $reservation->email ) . '</td></tr>
                 <tr><th>Slot Time:</th><td>' . esc_html( $slot_time ) . '</td></tr>
                 <tr><th>Status:</th><td>' . esc_html( ucfirst( $reservation->status ) ) . '</td></tr>
-                <tr><th>Order ID:</th><td>' . ( $reservation->order_id ? esc_html( $reservation->order_id ) : 'N/A' ) . '</td></tr>
-            </table>';
+                <tr><th>Order ID:</th><td>' . ( $reservation->order_id ? esc_html( $reservation->order_id ) : 'N/A' ) . '</td></tr>';
+                if ( ! empty( $reservation->file_path ) ) {
+                    $file_url = esc_url( $reservation->file_path );
+                    $file_name = basename( $file_url );
+                    echo '<tr><th>Uploaded File:</th>
+                            <td><a href="' . $file_url . '" target="_blank">' . esc_html($file_name) . '</a></td>
+                          </tr>';
+                } else {
+                    echo '<tr><th>Uploaded File:</th><td>No file uploaded</td></tr>';
+                }
+        echo '</table>';
         echo '</div>';
     }
 }

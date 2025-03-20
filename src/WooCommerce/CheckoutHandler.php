@@ -3,11 +3,22 @@ namespace MyReservationPlugin\WooCommerce;
 
 class CheckoutHandler {
     public function redirect_to_checkout( int $reservation_id ) {
-        $product_id = 123; // Pre-created WooCommerce product
-        $cart_url = wc_get_checkout_url();
-        WC()->cart->empty_cart();
+        if ( ! function_exists( 'WC' ) ) {
+            return;
+        }
+
+        $this->process_checkout( $reservation_id );
+    }
+
+    private function process_checkout( int $reservation_id ) {
+        if ( is_null( WC()->cart ) ) {
+            wc_load_cart();
+        }
+
+        $product_id = 67; // WooCommerce product ID
         WC()->cart->add_to_cart( $product_id );
-        wp_redirect( $cart_url );
+        $checkout_url = wc_get_checkout_url() . '?reservation_id=' . $reservation_id;
+        wp_safe_redirect( $checkout_url );
         exit;
     }
 }

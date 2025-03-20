@@ -8,12 +8,25 @@ use MyReservationPlugin\Frontend\AjaxHandler;
 use MyReservationPlugin\WooCommerce\CheckoutHandler;
 use MyReservationPlugin\Helpers\Email;
 use MyReservationPlugin\Admin\ReservationDetails;
+use MyReservationPlugin\Frontend\ReservationHandler;
 
 
 class Init {
     public function __construct() {
         add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts_and_styles' ) );
         add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_scripts_and_styles' ) );
+        add_action( 'woocommerce_before_order_notes', function() {
+            if ( ! empty( $_GET['reservation_id'] ) ) {
+                echo '<input type="hidden" name="reservation_id" value="' . esc_attr( $_GET['reservation_id'] ) . '">';
+            }
+        } );
+        add_action( 'woocommerce_checkout_update_order_meta', function( $order_id ) {
+            if ( isset( $_POST['reservation_id'] ) ) {
+                $order = wc_get_order( $order_id );
+                $order->update_meta_data( 'reservation_id', sanitize_text_field( $_POST['reservation_id'] ) );
+                $order->save();
+            }
+        });
 
         if ( is_admin() ) {
             require_once plugin_dir_path( __FILE__ ) . 'Admin/Reservations.php';
@@ -28,6 +41,7 @@ class Init {
         new Email();
         new ReservationDetails();
         new AjaxHandler();
+        new ReservationHandler();
 
     }
 
@@ -39,6 +53,7 @@ class Init {
             'nonce'    => wp_create_nonce( 'admin_ajax_nonce' ),
         ) );
     }
+    
     public function enqueue_scripts_and_styles() {
         wp_enqueue_script( 'jquery' );
 

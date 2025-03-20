@@ -3,19 +3,12 @@ if (!defined('ABSPATH')) {
     exit; // Prevent direct access
 }
 
-use MyReservationPlugin\Helpers\Helper;
-
-// Get available slots from the database
-global $wpdb;
-$table_slots = $wpdb->prefix . 'reservation_slots';
-$available_slots = $wpdb->get_results("SELECT id, slot_time FROM $table_slots WHERE status = 'available'");
-
 ?>
 
 <div class="reservation-form-container">
     <h2>Book Your Reservation</h2>
     
-    <form id="reservation-form" method="post" enctype="multipart/form-data" action="<?php echo esc_url(admin_url('admin-post.php')); ?>">
+    <form id="reservation-form" method="post" enctype="multipart/form-data" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
         
         <!-- Name -->
         <p>
