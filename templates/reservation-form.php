@@ -3,6 +3,17 @@ if (!defined('ABSPATH')) {
     exit; // Prevent direct access
 }
 
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+// Retrieve errors and old input values
+$errors = $_SESSION['reservation_errors'] ?? [];
+$data = $_SESSION['reservation_old_data'] ?? [];
+
+// Clear session errors after displaying them
+unset($_SESSION['reservation_errors']);
+unset($_SESSION['reservation_old_data']);
 ?>
 
 <div class="reservation-form-container">
@@ -13,20 +24,29 @@ if (!defined('ABSPATH')) {
         <!-- Name -->
         <p>
             <label for="name">Full Name</label>
-            <input type="text" name="name" id="name" required>
+            <input type="text" name="name" id="name" value="<?php echo esc_attr($data['name'] ?? ''); ?>" required>
+            <?php if (isset($errors['name'])): ?>
+                <span class="error-message"><?php echo esc_html($errors['name']); ?></span>
+            <?php endif; ?>
         </p>
 
         <!-- Email -->
         <p>
             <label for="email">Email Address</label>
-            <input type="email" name="email" id="email" required>
+            <input type="email" name="email" id="email" value="<?php echo esc_attr($data['email'] ?? ''); ?>" required>
+            <?php if (isset($errors['email'])): ?>
+                <span class="error-message"><?php echo esc_html($errors['email']); ?></span>
+            <?php endif; ?>
         </p>
 
         <!-- Calendar for Slot Selection -->
         <p>
             <label>Select a Time Slot</label>
             <div id="calendar"></div>
-            <input type="hidden" name="slot_id" id="slot_id" required>
+            <input type="hidden" name="slot_id" id="slot_id" value="<?php echo esc_attr($data['slot_id'] ?? ''); ?>" required>
+            <?php if (isset($errors['slot_id'])): ?>
+                <span class="error-message"><?php echo esc_html($errors['slot_id']); ?></span>
+            <?php endif; ?>
         </p>
 
         <!-- File Upload -->

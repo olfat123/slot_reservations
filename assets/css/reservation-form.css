@@ -59,3 +59,9 @@
     background-color: #9797a5; /* Gray for reserved slots */
 }
 
+.error-message {
+    color: red;
+    font-size: 14px;
+    display: block;
+    margin-top: 5px;
+}

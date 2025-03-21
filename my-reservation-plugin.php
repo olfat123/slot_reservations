@@ -78,3 +78,10 @@ function my_update_reservation_status( $order_id ) {
 
     }
 }
+
+function my_reservation_start_session() {
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
+}
+add_action('init', 'my_reservation_start_session', 1);

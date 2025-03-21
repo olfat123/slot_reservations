@@ -53,15 +53,17 @@ class AjaxHandler {
 
         $events = array();
         foreach ( $slots as $slot ) {
-            $color = ($slot->status === 'reserved') ? "#eee" : "green"; // Grey for reserved, green for available
-            $className = ($slot->status === 'reserved') ? "reserved" : "available"; // Add class
+            $is_reserved = $slot->status === 'reserved';
+            $color = $is_reserved ? "#eee" : "green"; 
+            $className = $is_reserved ? "reserved" : "available"; 
 
             $events[] = array(
                 'id'    => $slot->id,
                 'title' => date( "g:i A", strtotime( $slot->slot_time ) ),
                 'start' => $slot->slot_time,
                 'color' => $color,
-                'className' => $className
+                'className' => $className,
+                'reserved' => $is_reserved,
             );
         }
 

@@ -15,6 +15,31 @@ class ReservationHandler {
             wp_die('Security check failed');
         }
 
+        $_SESSION['reservation_errors'] = []; // Initialize errors
+
+        // Get and validate required fields
+        $name = isset($_POST['name']) ? sanitize_text_field($_POST['name']) : '';
+        $email = isset($_POST['email']) ? sanitize_email($_POST['email']) : '';
+        $slot_id = isset($_POST['slot_id']) ? intval($_POST['slot_id']) : 0;
+
+        if (empty($name)) {
+            $_SESSION['reservation_errors']['name'] = 'Full Name is required.';
+        }
+        if (empty($email)) {
+            $_SESSION['reservation_errors']['email'] = 'Email Address is required.';
+        }
+        if (empty($slot_id)) {
+            $_SESSION['reservation_errors']['slot_id'] = 'Please select a time slot.';
+        }
+
+        // Store old data
+        $_SESSION['reservation_old_data'] = $_POST;
+
+        if (!empty($_SESSION['reservation_errors'])) {
+            wp_redirect($_SERVER['HTTP_REFERER']); // Redirect back to form
+            exit;
+        }
+
         global $wpdb;
         $table_reservations = $wpdb->prefix . 'reservation_reservations';
         
