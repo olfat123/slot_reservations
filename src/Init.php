@@ -46,14 +46,20 @@ class Init {
     }
 
     public function enqueue_admin_scripts_and_styles() {
-        wp_enqueue_script( 'admin-slots-js', plugin_dir_url( __FILE__ ) . '../assets/js/admin-slots.js', array( 'jquery' ), null, true );
+        wp_enqueue_script('jquery-ui-datepicker');
+        wp_enqueue_script('jquery-ui-dialog');
+        wp_enqueue_script('jquery-ui-timepicker', 'https://cdnjs.cloudflare.com/ajax/libs/jquery-ui-timepicker-addon/1.6.3/jquery-ui-timepicker-addon.min.js', array('jquery', 'jquery-ui-datepicker'), null, true);
 
+        wp_enqueue_style('jquery-ui-css', 'https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css');
+        wp_enqueue_style('jquery-ui-timepicker-css', 'https://cdnjs.cloudflare.com/ajax/libs/jquery-ui-timepicker-addon/1.6.3/jquery-ui-timepicker-addon.min.css');
+
+        wp_enqueue_script( 'admin-slots-js', plugin_dir_url( __FILE__ ) . '../assets/js/admin-slots.js', array( 'jquery' ), null, true );
         wp_localize_script( 'admin-slots-js', 'calendarData', array(
             'ajax_url' => admin_url( 'admin-ajax.php' ),
             'nonce'    => wp_create_nonce( 'admin_ajax_nonce' ),
         ) );
     }
-    
+
     public function enqueue_scripts_and_styles() {
         wp_enqueue_script( 'jquery' );
 

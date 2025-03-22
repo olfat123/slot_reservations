@@ -7,6 +7,7 @@ jQuery(document).ready(function($) {
                     slotsHtml += `
                         <tr>
                             <td>${slot.slot_time}</td>
+                            <td>${slot.duration} minutes</td>
                             <td>
                                 <select class="slot-status" data-id="${slot.id}">
                                     <option value="available" ${slot.status === 'available' ? 'selected' : ''}>Available</option>
@@ -22,22 +23,6 @@ jQuery(document).ready(function($) {
             }
         });
     }
-
-    $('#add-slot').click(function() {
-        const slotTime = prompt("Enter slot time (YYYY-MM-DD HH:MM:SS):");
-        if (slotTime) {
-            $.post(ajaxurl, {
-                action: 'add_slot',
-                slot_time: slotTime,
-                nonce: calendarData.nonce
-            }, function(response) {
-                if (response.success) {
-                    alert(response.data.message);
-                    loadSlots();
-                }
-            });
-        }
-    });
 
     $(document).on('click', '.remove-slot', function() {
         if (confirm("Are you sure you want to remove this slot?")) {
@@ -68,6 +53,59 @@ jQuery(document).ready(function($) {
                 alert(response.data.message);
             }
         });
+    });
+
+    // Initialize Dialog Modal
+    $("#slot-modal").dialog({
+        autoOpen: false,
+        modal: true,
+        width: 400,
+    });
+
+    // Initialize jQuery UI DateTime Picker
+    $("#slot-time").datetimepicker({
+        dateFormat: "yy-mm-dd",
+        timeFormat: "HH:mm",
+        controlType: 'select',
+        oneLine: true,
+        stepMinute: 15
+    });
+
+    // Open Modal on Button Click
+    $("#add-slot").click(function() {
+        $("#slot-modal").dialog("open");
+    });
+
+    // Handle Save Slot Button Click
+    $("#save-slot").click(function() {
+        let slotTime = $("#slot-time").val();
+        let slotDuration = $("#slot-duration").val();
+
+        if (!slotTime || !slotDuration) {
+            alert("Please select a valid date, time, and duration.");
+            return;
+        }
+
+        $.ajax({
+            url: calendarData.ajax_url,
+            type: "POST",
+            data: {
+                action: "add_slot",
+                nonce: calendarData.nonce,
+                slot_time: slotTime,
+                slot_duration: slotDuration
+            },
+            success: function(response) {
+                if (response.success) {
+                    alert("Slot added successfully!");
+                    location.reload();
+                } else {
+                    alert("Error: " + response.data.message);
+                }
+            }
+        });
+
+        $("#slot-modal").dialog("close");
     });
 
     loadSlots();

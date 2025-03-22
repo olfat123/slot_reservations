@@ -7,14 +7,14 @@ class Settings {
     }
 
     public function add_menu_page() {
-        add_menu_page(
-            'Reservation Settings',
-            'Reservation Settings',
+        // Submenu: Settings
+        add_submenu_page(
+            'my_reservations',
+            esc_html__( 'Settings', 'my-reservation-plugin' ),
+            esc_html__( 'Settings', 'my-reservation-plugin' ),
             'manage_options',
             'reservation-settings',
-            array( $this, 'render_settings_page' ),
-            'dashicons-calendar-alt',
-            20
+            array( $this, 'render_settings_page' )
         );
     }
 
@@ -26,16 +26,17 @@ class Settings {
                 <?php
                 settings_fields('my_reservation_settings_group');
                 do_settings_sections('my_reservation_settings_group');
-                submit_button();
                 ?>
             </form>
-
+    
             <h2>Manage Available Slots</h2>
-            <button id="add-slot">Add Slot</button>
-            <table class="widefat">
+            <button id="add-slot" class="button button-primary">Add Slot</button>
+            <br>
+            <table class="widefat" style="margin-top: 10px;">
                 <thead>
                     <tr>
                         <th>Slot Time</th>
+                        <th>Duration</th>
                         <th>Status</th>
                         <th>Actions</th>
                     </tr>
@@ -44,6 +45,19 @@ class Settings {
                     <!-- Slots will be loaded here via AJAX -->
                 </tbody>
             </table>
+        </div>
+    
+        <!-- Popup Modal for Adding Slot -->
+        <div id="slot-modal" title="Add Slot" style="display:none;">
+            <p>
+                <label for="slot-time">Select Slot Time:</label>
+                <input type="text" id="slot-time" name="slot_time" class="regular-text" required>
+            </p>
+            <p>
+                <label for="slot-duration">Duration (in minutes):</label>
+                <input type="number" id="slot-duration" name="slot_duration" class="regular-text" min="15" step="15" required>
+            </p>
+            <button id="save-slot" class="button button-primary">Save Slot</button>
         </div>
         <?php
     }

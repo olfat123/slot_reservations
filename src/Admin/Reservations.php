@@ -26,16 +26,29 @@ class Reservations {
 	 * Add the refunds menu page
 	 */
 	public function add_menu_page(): void {
-		add_menu_page(
-			esc_html__( 'Reservations', 'mighty-kids' ),
-			esc_html__( 'Reservations', 'mighty-kids' ),
-			'manage_options',
-			'reservations',
-			array( $this, 'render_page' ),
-			'dashicons-money',
-			20
-		);
+		 // Main Menu
+		 add_menu_page(
+            esc_html__('Reservations', 'my-reservation-plugin'),
+            esc_html__('Reservations', 'my-reservation-plugin'),
+            'manage_options',
+            'my_reservations',
+            array( $this, 'render_page' ),
+            'dashicons-calendar-alt',
+            20
+        );
+
+		 // Submenu: Reservations
+		 add_submenu_page(
+            'my_reservations',
+            esc_html__('Reservations List', 'my-reservation-plugin'),
+            esc_html__('Reservations List', 'my-reservation-plugin'),
+            'manage_options',
+            'my_reservations',
+            array( $this, 'render_page' )
+        );
+
 	}
+
 
 	/**
 	 * Enqueue necessary scripts

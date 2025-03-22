@@ -1,7 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
 
     if (typeof FullCalendar === "undefined") {
-        console.error("FullCalendar.js is not loaded.");
         return;
     }
 
@@ -32,35 +31,29 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
             });
         },
+        eventContent: function (arg) {
+            // Create custom event content
+            let eventTitle = document.createElement("div");
+            eventTitle.classList.add("fc-event-title");
+            eventTitle.innerText = arg.event.title; // Show only title (time range)
+
+            return { domNodes: [eventTitle] };
+        },
         eventClick: function (info) {
             if (info.event.extendedProps.reserved) {
-                alert("This slot is already reserved. Please choose another one.");
+                // alert("This slot is already reserved. Please choose another one.");
                 return; // Prevent selection of reserved slot
             }
             document.getElementById("slot_id").value = info.event.id;
-            alert("Selected slot: " + info.event.title);
+            // Remove 'selected' class from all events
+            document.querySelectorAll('.fc-event').forEach(event => {
+                event.classList.remove('selected');
+            });
+            info.el.classList.remove('available');
+            info.el.classList.add('selected');
+
         }
     });
 
     calendar.render();
-
-    document.getElementById("reservation-form").addEventListener("submit", function (event) {
-        let isValid = true;
-        let requiredFields = ["name", "email", "slot_id"];
-
-        requiredFields.forEach(function (field) {
-            let input = document.getElementById(field);
-            if (!input || input.value.trim() === "") {
-                isValid = false;
-                input.style.border = "2px solid red"; // Highlight empty field
-            } else {
-                input.style.border = ""; // Reset border if valid
-            }
-        });
-
-        if (!isValid) {
-            event.preventDefault(); // Stop form submission
-            alert("Please fill in all required fields.");
-        }
-    });
 });

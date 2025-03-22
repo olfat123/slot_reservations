@@ -59,9 +59,29 @@
     background-color: #9797a5; /* Gray for reserved slots */
 }
 
+.fc-event.selected {
+    background-color: rgb(26, 151, 197); 
+}
 .error-message {
     color: red;
     font-size: 14px;
     display: block;
     margin-top: 5px;
+}
+
+.fc .fc-toolbar-title {
+    font-size: 1.5em;
+    margin: 0;
+}
+
+.fc .fc-button {
+    font-size: .9em;
+}
+
+#calendar {
+    width: 100% !important;
+    max-width: 100%;
+}
+.fc {
+    width: 100% !important;
 }

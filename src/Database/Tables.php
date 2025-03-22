@@ -11,10 +11,10 @@ class Tables {
 
         require_once ABSPATH . 'wp-admin/includes/upgrade.php';
 
-        // Create available slots table
         $sql1 = "CREATE TABLE $table_slots (
             id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
             slot_time DATETIME NOT NULL,
+            duration INT NOT NULL DEFAULT 15,
             status ENUM('available', 'reserved') DEFAULT 'available'
         ) $charset_collate;";
         dbDelta($sql1);
@@ -24,6 +24,9 @@ class Tables {
             id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
             name VARCHAR(255) NOT NULL,
             email VARCHAR(255) NOT NULL,
+            country VARCHAR(255) NOT NULL,
+            region VARCHAR(255) NOT NULL,
+            whatsapp VARCHAR(255) NOT NULL,
             slot_id BIGINT UNSIGNED NOT NULL,
             file_path VARCHAR(255),
             order_id BIGINT UNSIGNED,
