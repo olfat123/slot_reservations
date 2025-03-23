@@ -7,11 +7,11 @@ class Settings {
     }
 
     public function add_menu_page() {
-        // Submenu: Settings
+        // Submenu: Slots
         add_submenu_page(
             'my_reservations',
-            esc_html__( 'Settings', 'my-reservation-plugin' ),
-            esc_html__( 'Settings', 'my-reservation-plugin' ),
+            esc_html__( 'Slots', 'my-reservation-plugin' ),
+            esc_html__( 'Slots', 'my-reservation-plugin' ),
             'manage_options',
             'reservation-settings',
             array( $this, 'render_settings_page' )
