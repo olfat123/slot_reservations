@@ -1,5 +1,5 @@
 .reservation-form-container {
-    /* max-width: 500px; */
+    max-width: 80%;
     margin: 0 auto;
     padding: 20px;
     background: #f9f9f9;
@@ -19,12 +19,13 @@
 .reservation-form-container label {
     display: block;
     font-weight: bold;
+    font-size: 15px;
 }
 
 .reservation-form-container input,
 .reservation-form-container select {
     width: 100%;
-    padding: 8px;
+    padding: 8px 0;
     margin-top: 5px;
     border: 1px solid #ddd;
     border-radius: 4px;
@@ -70,12 +71,12 @@
 }
 
 .fc .fc-toolbar-title {
-    font-size: 1.5em;
+    font-size: 20px;
     margin: 0;
 }
 
 .fc .fc-button {
-    font-size: .9em;
+    font-size: 12px;
 }
 
 #calendar {
@@ -84,4 +85,63 @@
 }
 .fc {
     width: 100% !important;
+}
+
+.fc table{
+    font-size: 15px;
+}
+
+/* Thank you page */
+.check-icon {
+    width: 60px;
+    height: 60px;
+    background: #4caf50;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto 20px;
+}
+
+.thank-you-container{
+    background: #ffffff;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 500px;
+    width: 90%;
+    margin: auto;
+}
+
+.check-icon::before {
+    content: '✓';
+    color: white;
+    font-size: 32px;
+    font-weight: bold;
+}
+
+.thank-you-container h1 {
+    color: #333;
+    font-size: 28px;
+    margin-bottom: 15px;
+}
+
+.thank-you-container p {
+    color: #666;
+    font-size: 16px;
+    line-height: 1.5;
+    margin-bottom: 25px;
+}
+
+.thank-you-container .btn {
+    display: inline-block;
+    padding: 12px 30px;
+    background: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 500;
+    transition: background 0.3s ease;
 }
