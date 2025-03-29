@@ -11,7 +11,7 @@ class Email {
      * @param string $slot_time Reserved slot time.
      */
     public static function send_admin_notification( string $name, string $email, string $slot_time ) {
-        $admin_email = get_option( 'admin_email' );
+        $admin_email = 'info@prestigiodental.com';
         $subject     = "New Reservation Received";
         $message     = "
             <h2>New Reservation Details</h2>
