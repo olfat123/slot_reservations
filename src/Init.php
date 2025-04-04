@@ -1,8 +1,14 @@
 <?php
+
+if (!defined('ABSPATH')) {
+    exit; // Exit if accessed directly.
+}
+
 namespace MyReservationPlugin;
 
 use MyReservationPlugin\Database\Tables;
 use MyReservationPlugin\Admin\Settings;
+use MyReservationPlugin\Admin\Slots;
 use MyReservationPlugin\Frontend\Shortcode;
 use MyReservationPlugin\Frontend\AjaxHandler;
 use MyReservationPlugin\WooCommerce\CheckoutHandler;
@@ -35,6 +41,7 @@ class Init {
 
         // Initialize components
         new Tables();
+        new Slots();
         new Settings();
         new Shortcode();
         new CheckoutHandler();
