@@ -1,10 +1,7 @@
 <?php
-
-if (!defined('ABSPATH')) {
-    exit; // Exit if accessed directly.
-}
-
 namespace MyReservationPlugin\Frontend;
+
+defined( 'ABSPATH' ) || exit;
 
 use MyReservationPlugin\Helpers\Email;
 use MyReservationPlugin\WooCommerce\CheckoutHandler;

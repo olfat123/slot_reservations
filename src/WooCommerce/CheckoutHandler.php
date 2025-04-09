@@ -1,10 +1,7 @@
 <?php
-
-if (!defined('ABSPATH')) {
-    exit; // Exit if accessed directly.
-}
-
 namespace MyReservationPlugin\WooCommerce;
+
+defined( 'ABSPATH' ) || exit;
 
 class CheckoutHandler {
     public function redirect_to_checkout( int $reservation_id ) {

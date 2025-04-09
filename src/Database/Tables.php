@@ -1,10 +1,7 @@
 <?php
-
-if (!defined('ABSPATH')) {
-    exit; // Exit if accessed directly.
-}
-
 namespace MyReservationPlugin\Database;
+
+defined( 'ABSPATH' ) || exit;
 
 class Tables {
     public function create_tables() {

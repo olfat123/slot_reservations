@@ -1,10 +1,7 @@
 <?php
-
-if (!defined('ABSPATH')) {
-    exit; // Exit if accessed directly.
-}
-
 namespace MyReservationPlugin;
+
+defined( 'ABSPATH' ) || exit;
 
 use MyReservationPlugin\Database\Tables;
 use MyReservationPlugin\Admin\Settings;

@@ -1,7 +1,5 @@
 <?php
-if ( ! defined( 'ABSPATH' ) ) {
-    exit; // Prevent direct access
-}
+defined( 'ABSPATH' ) || exit;
 
 if ( session_status() === PHP_SESSION_NONE ) {
     session_start();

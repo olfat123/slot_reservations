@@ -1,10 +1,7 @@
 <?php
-
-if (!defined('ABSPATH')) {
-    exit; // Exit if accessed directly.
-}
-
 namespace MyReservationPlugin\Admin;
+
+defined( 'ABSPATH' ) || exit;
 
 use MyReservationPlugin\Helpers\Helper;
 use WP_List_Table;

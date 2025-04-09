@@ -1,9 +1,7 @@
 <?php
-if (!defined('ABSPATH')) {
-    exit; // Exit if accessed directly.
-}
-
 namespace MyReservationPlugin\Helpers;
+
+defined( 'ABSPATH' ) || exit;
 
 class Helper {
     /**

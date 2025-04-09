@@ -5,10 +5,6 @@
  * @package MyReservationPlugin
  */
 
- if (!defined('ABSPATH')) {
-    exit; // Exit if accessed directly.
-}
-
 namespace MyReservationPlugin\Admin;
 
 defined( 'ABSPATH' ) || exit;

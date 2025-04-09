@@ -3,9 +3,8 @@
  * Template Name: Thank You Page
  */
 
-if (!defined('ABSPATH')) {
-    exit; // Prevent direct access
-}
+defined( 'ABSPATH' ) || exit;
+
 get_header();
 
 ?>

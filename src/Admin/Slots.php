@@ -1,10 +1,7 @@
 <?php
-
-if (!defined('ABSPATH')) {
-    exit; // Exit if accessed directly.
-}
-
 namespace MyReservationPlugin\Admin;
+
+defined( 'ABSPATH' ) || exit;
 
 class Slots {
     public function __construct() {
@@ -18,7 +15,7 @@ class Slots {
             esc_html__( 'Slots', 'my-reservation-plugin' ),
             esc_html__( 'Slots', 'my-reservation-plugin' ),
             'manage_options',
-            'reservation-settings',
+            'reservation-slots',
             array( $this, 'render_slots_page' )
         );
     }

@@ -1,10 +1,7 @@
 <?php
-
-if (!defined('ABSPATH')) {
-    exit; // Exit if accessed directly.
-}
-
 namespace MyReservationPlugin\Frontend;
+
+defined( 'ABSPATH' ) || exit;
 
 class Shortcode {
     public function __construct() {

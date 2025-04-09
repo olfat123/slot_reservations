@@ -1,10 +1,7 @@
 <?php
-
-if (!defined('ABSPATH')) {
-    exit; // Exit if accessed directly.
-}
-
 namespace MyReservationPlugin\Frontend;
+
+defined( 'ABSPATH' ) || exit;
 
 class AjaxHandler {
     public function __construct() {
