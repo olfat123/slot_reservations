@@ -20,6 +20,7 @@ use MyReservationPlugin\Database\Tables;
 // Initialize the plugin
 function my_reservation_plugin_init() {
     new Init();
+    Tables::maybe_upgrade();
 }
 add_action('plugins_loaded', 'my_reservation_plugin_init');
 
