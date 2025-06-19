@@ -24,26 +24,30 @@ class ReservationHandler {
         $name     = isset($_POST['name']) ? sanitize_text_field($_POST['name']) : '';
         $country  = isset($_POST['country']) ? sanitize_text_field($_POST['country']) : '';
         $region   = isset($_POST['region']) ? sanitize_text_field($_POST['region']) : '';
+        $language = isset($_POST['language']) ? sanitize_text_field($_POST['language']) : '';
         $whatsapp = isset($_POST['whatsapp']) ? sanitize_text_field($_POST['whatsapp']) : '';
         $email    = isset($_POST['email']) ? sanitize_email($_POST['email']) : '';
         $slot_id  = isset($_POST['slot_id']) ? intval($_POST['slot_id']) : 0;
 
-        if (empty($name)) {
+        if ( empty( $name ) ) {
             $_SESSION['reservation_errors']['name'] = 'Full Name is required.';
         }
-        if (empty($country)) {
+        if ( empty( $country ) ) {
             $_SESSION['reservation_errors']['country'] = 'Country is required.';
         }
-        if (empty($region)) {
+        if ( empty( $region ) ) {
             $_SESSION['reservation_errors']['region'] = 'Region is required.';
         }
-        if (empty($whatsapp)) {
+        if ( empty( $language ) ) {
+            $_SESSION['reservation_errors']['language'] = 'Language is required.';
+        }
+        if ( empty( $whatsapp ) ) {
             $_SESSION['reservation_errors']['whatsapp'] = 'Whatsapp number is required.';
         }
-        if (empty($email)) {
+        if ( empty( $email ) ) {
             $_SESSION['reservation_errors']['email'] = 'Email Address is required.';
         }
-        if (empty($slot_id)) {
+        if ( empty( $slot_id ) ) {
             $_SESSION['reservation_errors']['slot_id'] = 'Please select a time slot.';
         }
         if ( ! preg_match( '/^\+?\d{7,15}$/', $whatsapp ) ) {
@@ -52,8 +56,8 @@ class ReservationHandler {
         // Store old data
         $_SESSION['reservation_old_data'] = $_POST;
 
-        if (!empty($_SESSION['reservation_errors'])) {
-            wp_redirect($_SERVER['HTTP_REFERER']); // Redirect back to form
+        if ( ! empty( $_SESSION['reservation_errors'] ) ) {
+            wp_redirect( $_SERVER['HTTP_REFERER'] ); // Redirect back to form
             exit;
         }
 
@@ -85,6 +89,7 @@ class ReservationHandler {
             'name'      => $name,
             'country'   => $country,
             'region'    => $region,
+            'language'  => $language,
             'whatsapp'  => $whatsapp,
             'email'     => $email,
             'slot_id'   => $slot_id,
@@ -101,9 +106,9 @@ class ReservationHandler {
             array( 'id'     => $slot_id )
         );
         $slot_time = $wpdb->get_var(
-            $wpdb->prepare("SELECT slot_time FROM $table_slots WHERE id = %d", $slot_id)
+            $wpdb->prepare( "SELECT slot_time FROM $table_slots WHERE id = %d", $slot_id )
         );
-        Email::send_admin_notification( $name, $email, $slot_time);
+        Email::send_admin_notification( $name, $email, $slot_time );
 
         // Redirect to WooCommerce Checkout
         ( new CheckoutHandler() )->redirect_to_checkout( $reservation_id );

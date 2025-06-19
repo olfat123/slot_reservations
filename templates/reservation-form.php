@@ -46,6 +46,19 @@ unset( $_SESSION['reservation_old_data'] );
             <?php endif; ?>
         </p>
 
+        <!-- Language -->
+        <p>
+            <label for="language">Language</label>
+            <select name="language" id="language">
+                <option value="English" <?php selected( $data['language'] ?? '', 'English' ); ?>>English</option>
+                <option value="Russian" <?php selected( $data['language'] ?? '', 'Russian' ); ?>>Russian</option>
+                <option value="Czech" <?php selected( $data['language'] ?? '', 'Czech' ); ?>>Czech</option>
+            </select>
+            <?php if ( isset( $errors['language'] ) ) : ?>
+                <span class="error-message"><?php echo esc_html( $errors['language'] ); ?></span>
+            <?php endif; ?>
+        </p>
+
         <!-- Email -->
         <p>
             <label for="email">Email Address</label>

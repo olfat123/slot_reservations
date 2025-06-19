@@ -1,5 +1,5 @@
 .reservation-form-container {
-    max-width: 80%;
+    max-width: 100%;
     margin: 0 auto;
     padding: 20px;
     background: #f9f9f9;
@@ -144,4 +144,12 @@
     font-size: 16px;
     font-weight: 500;
     transition: background 0.3s ease;
+}
+
+.fc-col-header{
+    width: 100% !important;
+}
+
+.fc-col-header-cell-cushion{
+    font-size: 15px !important;
 }

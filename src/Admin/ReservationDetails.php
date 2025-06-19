@@ -47,6 +47,7 @@ class ReservationDetails {
                 <tr><th>Email:</th><td>' . esc_html( $reservation->email ) . '</td></tr>
                 <tr><th>Country:</th><td>' . esc_html( $reservation->country ) . '</td></tr>
                 <tr><th>Region:</th><td>' . esc_html( $reservation->region ) . '</td></tr>
+                <tr><th>Language:</th><td>' . esc_html( $reservation->language ) . '</td></tr>
                 <tr><th>Whatsapp:</th><td>' . esc_html( $reservation->whatsapp ) . '</td></tr>
                 <tr><th>Slot Time:</th><td>' . esc_html( $slot_time ) . '</td></tr>
                 <tr><th>Status:</th><td>' . esc_html( ucfirst( $reservation->status ) ) . '</td></tr>
