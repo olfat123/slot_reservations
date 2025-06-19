@@ -8,11 +8,12 @@ class Email {
     /**
      * Send an email to the admin when a new reservation is created.
      *
-     * @param string $name Customer name.
-     * @param string $email Customer email.
-     * @param string $slot_time Reserved slot time.
+     * @param string $name        Customer name.
+     * @param string $email       Customer email.
+     * @param string $slot_time   Reserved slot time.
+     * @param string|null $file_path Optional full path to the attachment file.
      */
-    public static function send_admin_notification( string $name, string $email, string $slot_time ) {
+    public static function send_admin_notification( string $name, string $email, string $slot_time, string $file_path ) {
         $admin_email = 'info@prestigiodental.com';
         $subject     = "New Reservation Received";
         $message     = "
@@ -21,12 +22,18 @@ class Email {
             <p><strong>Email:</strong> $email</p>
             <p><strong>Slot Time:</strong> $slot_time</p>
         ";
-        
+
         $headers = array(
             'Content-Type: text/html; charset=UTF-8',
             'From: ' . get_bloginfo('name') . ' <' . $admin_email . '>'
         );
 
-        wp_mail( $admin_email, $subject, $message, $headers );
+        $attachments = [];
+
+        if ( $file_path && file_exists( $file_path ) ) {
+            $attachments[] = $file_path;
+        }
+
+        wp_mail( $admin_email, $subject, $message, $headers, $attachments );
     }
 }

@@ -61,7 +61,6 @@ class AjaxHandler {
             $duration    =  $slot->duration;
             $start_time  = strtotime( $slot->slot_time );
             $end_time    = $start_time + ( 60 * $duration );
-error_log('duration '. $duration);
             $events[] = array(
                 'id'        => $slot->id,
                 'title'     => date( "g:i A", $start_time ) . " - " . date( "g:i A", $end_time ),

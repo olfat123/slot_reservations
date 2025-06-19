@@ -108,7 +108,8 @@ class ReservationHandler {
         $slot_time = $wpdb->get_var(
             $wpdb->prepare( "SELECT slot_time FROM $table_slots WHERE id = %d", $slot_id )
         );
-        Email::send_admin_notification( $name, $email, $slot_time );
+
+        Email::send_admin_notification( $name, $email, $slot_time, $file_url = '' );
 
         // Redirect to WooCommerce Checkout
         ( new CheckoutHandler() )->redirect_to_checkout( $reservation_id );
