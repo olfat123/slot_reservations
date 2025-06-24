@@ -63,6 +63,7 @@ class Shortcode {
 
     public function reservation_thank_you_endpoint() {
         add_rewrite_endpoint( 'reservation-thank-you', EP_ROOT | EP_PAGES );
+        flush_rewrite_rules();
     }
 
     public function reservation_thank_you_template() {
