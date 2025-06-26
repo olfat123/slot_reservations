@@ -14,7 +14,7 @@ class CheckoutHandler {
 
     private function process_checkout( int $reservation_id ) {
 
-        wp_redirect(home_url('/reservation-thank-you/'));
+        wp_redirect( home_url('/reservation-thank-you/') );
 
         
         // if ( is_null( WC()->cart ) ) {

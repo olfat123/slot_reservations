@@ -51,7 +51,16 @@ class AjaxHandler {
 
         global $wpdb;
         $table = $wpdb->prefix . 'reservation_slots';
-        $slots = $wpdb->get_results( "SELECT id, slot_time, duration, status FROM $table" );
+        $current_time = current_time( 'mysql' );
+
+        $slots = $wpdb->get_results( $wpdb->prepare(
+            "SELECT id, slot_time, duration, status FROM $table WHERE slot_time > %s ",
+            $current_time
+        ) );
+        
+        if ( empty( $slots ) ) {
+            wp_send_json_error( array( 'message' => 'No available slots found.' ) );
+        }
 
         $events = array();
         foreach ( $slots as $slot ) {
@@ -61,7 +70,6 @@ class AjaxHandler {
             $duration    =  $slot->duration;
             $start_time  = strtotime( $slot->slot_time );
             $end_time    = $start_time + ( 60 * $duration );
-error_log('duration '. $duration);
             $events[] = array(
                 'id'        => $slot->id,
                 'title'     => date( "g:i A", $start_time ) . " - " . date( "g:i A", $end_time ),
@@ -80,9 +88,9 @@ error_log('duration '. $duration);
         global $wpdb;
         $table_name = $wpdb->prefix . 'reservation_slots';
 
-        $slots = $wpdb->get_results("SELECT * FROM $table_name ORDER BY slot_time ASC");
+        $slots = $wpdb->get_results( "SELECT * FROM $table_name ORDER BY slot_time ASC" );
 
-        wp_send_json_success($slots);
+        wp_send_json_success( $slots );
     }
 
     public function add_slot() {
@@ -101,7 +109,7 @@ error_log('duration '. $duration);
     }
 
     public function remove_slot() {
-        if (!isset($_POST['slot_id']) || !wp_verify_nonce($_POST['nonce'], 'admin_ajax_nonce')) {
+        if ( ! isset( $_POST['slot_id'] ) || !wp_verify_nonce( $_POST['nonce'], 'admin_ajax_nonce' ) ) {
             wp_send_json_error(['message' => 'Invalid request']);
         }
 
