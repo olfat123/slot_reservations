@@ -109,7 +109,7 @@ class ReservationHandler {
             $wpdb->prepare( "SELECT slot_time FROM $table_slots WHERE id = %d", $slot_id )
         );
 
-        Email::send_admin_notification( $name, $email, $slot_time, $file_url = '' );
+        Email::send_admin_notification( $name, $email, $slot_time, $file_url );
 
         wp_redirect( home_url( '/reservation-thank-you/' ) );
 
