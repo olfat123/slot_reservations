@@ -84,8 +84,7 @@ class ReservationHandler {
             }
         }
 
-        // Insert reservation
-        $wpdb->insert( $table_reservations, array(
+        $args = array(
             'name'      => $name,
             'country'   => $country,
             'region'    => $region,
@@ -94,9 +93,10 @@ class ReservationHandler {
             'email'     => $email,
             'slot_id'   => $slot_id,
             'file_path' => $file_url,
-            'status'    => 'complete'
-        ) );
-
+            'status'    => 'complete',
+        );
+        // Insert reservation
+        $wpdb->insert( $table_reservations, $args );
         $reservation_id = $wpdb->insert_id;
 
         // Mark the slot as reserved
@@ -109,7 +109,7 @@ class ReservationHandler {
             $wpdb->prepare( "SELECT slot_time FROM $table_slots WHERE id = %d", $slot_id )
         );
 
-        Email::send_admin_notification( $name, $email, $slot_time, $file_url );
+        Email::send_admin_notification( $slot_time, $args );
 
         wp_redirect( home_url( '/reservation-thank-you/' ) );
 

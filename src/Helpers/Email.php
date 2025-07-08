@@ -13,22 +13,24 @@ class Email {
     /**
      * Send an email to the admin when a new reservation is created.
      *
-     * @param string $name        Customer name.
-     * @param string $email       Customer email.
      * @param string $slot_time   Reserved slot time.
-     * @param string|null $file_path Optional full path to the attachment file.
+     * @param array  $args         Array containing reservation details.
      * 
      * @return void
      */
-    public static function send_admin_notification( string $name, string $email, string $slot_time, string $file_path = '' ): void {
+    public static function send_admin_notification( string $slot_time, array $args ): void {
         $admin_email = 'info@prestigiodental.com';
         $subject     = 'New Reservation Received';
         $message     = '
             <h2>New Reservation Details</h2>
-            <p><strong>Name:</strong> $name</p>
-            <p><strong>Email:</strong> $email</p>
-            <p><strong>Slot Time:</strong> $slot_time</p>
-            <p><strong>Attachment:</strong> <a href="' . $file_path . '">' . $file_path . '</a></p>
+            <p><strong>Name:</strong>' . $args['name'] . '</p>
+            <p><strong>Email:</strong>' . $args['email'] . '</p>
+            <p><strong>Country:</strong>' . $args['country'] . '</p>
+            <p><strong>Region:</strong>' . $args['region'] . '</p>
+            <p><strong>Language:</strong>' . $args['language'] . '</p>
+            <p><strong>Whatsapp:</strong>' . $args['whatsapp'] . '</p>
+            <p><strong>Slot Time:</strong>' . $slot_time . '</p>
+            <p><strong>Attachment:</strong><a href="' . $args['file_path'] . '">' . $args['file_path'] . '</a></p>
         ';
 
         $headers = array(
